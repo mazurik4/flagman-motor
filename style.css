@@ -293,36 +293,90 @@
 
   /* ---------- about ---------- */
   .about{ background:var(--white); }
+  .section-kicker{
+    display:block;
+    font-family:'Oswald', sans-serif;
+    color:var(--red);
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+  }
   .about-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:64px;
     align-items:start;
   }
+  .about-frame{
+    position:relative;
+    padding:44px;
+    border:1px solid var(--steel-line);
+  }
+  .about-frame::before, .about-frame::after{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+  }
+  .about-frame::before{ top:-1px; left:-1px; border-top:2px solid var(--red); border-left:2px solid var(--red); }
+  .about-frame::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--red); border-right:2px solid var(--red); }
   .about-text p{ color:var(--ink-soft); font-size:16.5px; margin:0 0 18px; max-width:48ch; }
   .about-text p:last-child{ margin-bottom:0; }
   .traits{ display:flex; flex-direction:column; }
   .trait{
     display:grid;
-    grid-template-columns:40px 1fr;
-    gap:18px;
+    grid-template-columns:52px 1fr;
+    gap:20px;
     padding:22px 0;
+    align-items:start;
     border-top:1px solid var(--steel-line);
   }
   .trait:last-child{ border-bottom:1px solid var(--steel-line); }
-  .trait svg{ width:26px; height:26px; margin-top:3px; }
+  .trait-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:52px;
+    height:52px;
+    border:1px solid rgba(195,31,46,0.35);
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .trait-icon svg{ width:24px; height:24px; }
   .trait h3{ font-size:17px; color:var(--ink); margin-bottom:6px; }
   .trait p{ color:var(--ink-soft); font-size:15px; margin:0; max-width:44ch; }
 
   /* ---------- services ---------- */
   .services{ background:var(--black); color:var(--white); }
   .service-row{
-    display:grid;
-    grid-template-columns:52px 1fr 1.5fr;
+    display:flex;
+    align-items:center;
     gap:32px;
     padding:32px 0;
     border-top:1px solid rgba(255,255,255,0.14);
-    align-items:start;
+  }
+  .service-index{ flex:0 0 30px; align-self:flex-start; margin-top:2px; }
+  .service-info{ flex:0 0 240px; align-self:flex-start; }
+  .service-desc{ flex:1 1 auto; min-width:0; align-self:flex-start; }
+  .service-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 72px;
+    width:72px;
+    height:72px;
+    border:1px solid rgba(195,31,46,0.35);
+    border-radius:50%;
+  }
+  .service-icon svg{
+    width:48px;
+    height:48px;
+    stroke:var(--red);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
   }
   .services-list .service-row:last-child{ border-bottom:1px solid rgba(255,255,255,0.14); }
   .service-index{
@@ -371,6 +425,63 @@
   }
 
   /* ---------- contact ---------- */
+  /* ---------- problems ---------- */
+  .problems{ background:var(--white); }
+  .problems-grid{
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:64px;
+  }
+  .problems-grid::before{
+    content:"";
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    width:1px;
+    background:var(--steel-line);
+  }
+  .problem-card{
+    position:relative;
+    padding:28px 24px 28px 14px;
+    border-top:1px solid var(--steel-line);
+    overflow:hidden;
+    transition:transform .25s ease, background .25s ease;
+  }
+  .problem-card::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:3px;
+    background:var(--red);
+    transform:scaleY(0);
+    transition:transform .25s ease;
+  }
+  .problem-card:hover{
+    background:rgba(195,31,46,0.03);
+    transform:translateX(6px);
+  }
+  .problem-card:hover::before{ transform:scaleY(1); }
+  .problems-grid .problem-card:nth-last-child(-n+2){
+    border-bottom:1px solid var(--steel-line);
+  }
+  .problem-text{
+    position:relative;
+    z-index:1;
+    font-family:'Oswald', sans-serif;
+    font-size:19px;
+    font-weight:500;
+    color:var(--ink);
+    margin:10px 0;
+  }
+  .problem-solution{
+    position:relative;
+    z-index:1;
+    color:var(--ink-soft);
+    font-size:15px;
+    margin:0;
+    max-width:36ch;
+  }
+
   .contact{ background:var(--paper); }
   .contact-grid{
     display:grid;
@@ -404,6 +515,16 @@
     border-color:var(--red);
   }
   .field textarea{ resize:vertical; min-height:96px; }
+  .field input:invalid, .field textarea:invalid{ box-shadow:none; }
+  .field input:-moz-ui-invalid{ box-shadow:none; border-color:var(--steel-line); }
+  .field input.input-error{ border-color:var(--red); }
+  .field-error{
+    display:none;
+    color:var(--red);
+    font-size:12.5px;
+    margin-top:7px;
+  }
+  .field-error.visible{ display:block; }
   .form-note{ font-size:13px; color:var(--ink-soft); margin-top:14px; }
 
   .info-block{ margin-bottom:30px; }
@@ -453,7 +574,8 @@
   a.route-link:hover::before{ transform:translateX(0); }
   a.route-link:hover .route-arrow{ transform:translateX(4px); }
   .map-frame{
-    border:1px solid var(--steel-line);
+    border-radius: 9px;
+    border:0.5px solid var(--red);
     height:220px;
     overflow:hidden;
   }
@@ -499,7 +621,11 @@
     .hero-meta{ gap:24px; }
     .section-head{ grid-template-columns:1fr; gap:16px; }
     .about-grid, .contact-grid{ grid-template-columns:1fr; gap:44px; }
-    .service-row{ grid-template-columns:1fr; gap:12px; }
+    .problems-grid{ grid-template-columns:1fr; }
+    .problems-grid::before{ display:none; }
+    .problem-card{ padding-left:14px; }
+    .service-row{ flex-direction:column; align-items:flex-start; gap:12px; }
+    .service-info{ flex-basis:auto; }
     .service-index{ display:none; }
     .form-card{ padding:28px; }
   }
