@@ -1,13 +1,33 @@
   const toggle = document.getElementById('navToggle');
   const mobileNav = document.getElementById('mobileNav');
   toggle.addEventListener('click', () => {
-    toggle.classList.toggle('open');
+    const isOpen = toggle.classList.toggle('open');
     mobileNav.classList.toggle('open');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
   mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     toggle.classList.remove('open');
     mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
   }));
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const targetId = this.getAttribute('href').slice(1);
+      if(!targetId || targetId === 'top'){
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const target = document.getElementById(targetId);
+      if(target){
+        const headerEl = document.querySelector('header');
+        const headerOffset = headerEl ? headerEl.getBoundingClientRect().height : 76;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
 
   function showFieldError(input, errorEl, msg){
     errorEl.textContent = msg;
@@ -67,6 +87,19 @@
     hideFieldError(this, phoneError);
   });
 
+  const fabTop = document.getElementById('fabTop');
+  function toggleFabTop(){
+    if(window.scrollY > 400){ fabTop.classList.add('show'); }
+    else { fabTop.classList.remove('show'); }
+  }
+  document.addEventListener('scroll', toggleFabTop, { passive: true });
+  toggleFabTop();
+
+  const yearEl = document.getElementById('currentYear');
+  if(yearEl){
+    yearEl.textContent = new Date().getFullYear();
+  }
+
   function countLetters(str){
     return (str.match(/[A-Za-zА-ЯЁІЇЄҐа-яёіїєґ]/g) || []).length;
   }
@@ -89,7 +122,17 @@
 
     if(!valid) return;
 
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const message = document.getElementById('message').value.trim();
+
     const btn = this.querySelector('button[type="submit"]');
     btn.textContent = 'Дякуємо! Ми на зв\'язку';
     btn.disabled = true;
+
+    let text = 'Заявка з сайту Флагман Мотор.\n' +
+      "Ім'я: " + name + '\n' +
+      'Телефон: ' + phone +
+      (message ? '\nКоментар: ' + message : '');
+    window.open('https://t.me/san4kkk_13?text=' + encodeURIComponent(text), '_blank');
   });
