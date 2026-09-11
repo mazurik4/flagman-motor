@@ -140,17 +140,20 @@
     transition:transform .35s ease;
     z-index:-1;
   }
-  .header-phone a.tel:hover{
+  .header-phone a.tel:hover,
+  .header-phone a.tel.pulse{
     box-shadow:0 4px 20px rgba(195,31,46,0.45);
     transform:translateY(-1px);
   }
-  .header-phone a.tel:hover::before{ transform:translateX(0); }
+  .header-phone a.tel:hover::before,
+  .header-phone a.tel.pulse::before{ transform:translateX(0); }
   .tel-icon{
     width:15px; height:15px;
     flex-shrink:0;
     transform-origin:70% 30%;
   }
-  .header-phone a.tel:hover .tel-icon{ animation:tel-ring 0.5s ease; }
+  .header-phone a.tel:hover .tel-icon,
+  .header-phone a.tel.pulse .tel-icon{ animation:tel-ring 0.5s ease; }
   @keyframes tel-ring{
     0%, 100%{ transform:rotate(0); }
     20%{ transform:rotate(-18deg); }
@@ -569,13 +572,16 @@
     z-index:-1;
   }
   .route-arrow{ display:inline-block; transition:transform .3s ease; }
-  a.route-link:hover{
+  a.route-link:hover,
+  a.route-link.pulse{
     color:var(--white) !important;
     box-shadow:0 4px 20px rgba(195,31,46,0.3);
     transform:translateY(-1px);
   }
-  a.route-link:hover::before{ transform:translateX(0); }
-  a.route-link:hover .route-arrow{ transform:translateX(4px); }
+  a.route-link:hover::before,
+  a.route-link.pulse::before{ transform:translateX(0); }
+  a.route-link:hover .route-arrow,
+  a.route-link.pulse .route-arrow{ transform:translateX(4px); }
   .map-frame{
     border:1px solid var(--steel-line);
     height:220px;

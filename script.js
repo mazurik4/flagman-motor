@@ -100,6 +100,28 @@
     yearEl.textContent = new Date().getFullYear();
   }
 
+  // ---------- mobile-only: periodic auto "fill" animation on call + route buttons ----------
+  (function autoPulseButtons(){
+    const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+    const pulseTargets = [
+      document.querySelector('.header-phone a.tel'),
+      document.querySelector('a.route-link')
+    ].filter(Boolean);
+
+    if(!pulseTargets.length) return;
+
+    function runPulse(){
+      if(!isMobile()) return;
+      pulseTargets.forEach(el => el.classList.add('pulse'));
+      setTimeout(() => {
+        pulseTargets.forEach(el => el.classList.remove('pulse'));
+      }, 1300);
+    }
+
+    setTimeout(runPulse, 4000);
+    setInterval(runPulse, 8000);
+  })();
+
   function countLetters(str){
     return (str.match(/[A-Za-zА-ЯЁІЇЄҐа-яёіїєґ]/g) || []).length;
   }
