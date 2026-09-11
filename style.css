@@ -499,6 +499,11 @@
     border:1px solid var(--steel-line);
     padding:40px;
   }
+  .form-title{
+    font-size:20px;
+    color:var(--ink);
+    margin:0 0 22px;
+  }
   .field{ margin-bottom:20px; }
   .field label{
     display:block;
