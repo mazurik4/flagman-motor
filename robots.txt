@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flagmanmotor.com.ua/sitemap.xml
